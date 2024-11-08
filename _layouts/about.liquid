@@ -39,6 +39,28 @@ layout: default
     {% endif %}
 
     <div class="clearfix">{{ content }}</div>
+                <!-- Animated Text Section -->
+    <div class="animated-text-container">
+        <strong>Your <span id="animatedText" class="animated-text show">church</span> needs a strategic Bitcoin reserve.</strong>
+    </div>
+
+    <p></p>
+    <p>We're here to help.</p>
+
+    <!-- Lightning -->
+    {% if page.lightning %}
+      <div class="widget-placeholder">
+          <lightning-widget 
+            name="Support Our Work" 
+            accent="#6f7674" 
+            to="giveinbitcoin@coinos.io" 
+            image="https://giveinbitcoin.github.io/logo.png"
+            amounts="1000,5000,10000"
+            labels="1000👍,5000⭐🙏,10000🔥🚀👑"
+          ></lightning-widget>
+      </div>
+      <script src="https://embed.twentyuno.net/js/app.js"></script>
+    {% endif %}
 
     <!-- News -->
     {% if page.news and site.announcements.enabled %}
@@ -78,3 +100,27 @@ layout: default
     {% endif %}
   </article>
 </div>
+
+<!-- Animated Text Script -->
+<script>
+    const words = ["church", "school", "ministry", "nonprofit"];
+    let index = 0;
+    const animatedTextElement = document.getElementById("animatedText");
+
+    function changeText() {
+        // Hide current word
+        animatedTextElement.classList.remove("show");
+
+        // Wait for the fade-out transition, then change the word
+        setTimeout(() => {
+            index = (index + 1) % words.length;
+            animatedTextElement.textContent = words[index];
+
+            // Show the next word
+            animatedTextElement.classList.add("show");
+        }, 500); // Matches the CSS transition duration
+    }
+
+    // Change text every 2 seconds
+    setInterval(changeText, 2000);
+</script>
