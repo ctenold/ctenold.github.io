@@ -5,8 +5,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cole Tenold - Portfolio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #000000;
+            --card-bg: #f8f9fa;
+            --border-color: #dee2e6;
+        }
+        [data-bs-theme="dark"] {
+            --bg-color: #121212;
+            --text-color: #ffffff;
+            --card-bg: #1e1e1e;
+            --border-color: #343a40;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .card {
+            background-color: var(--card-bg);
+            border-color: var(--border-color);
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .navbar {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        [data-bs-theme="dark"] .btn-primary {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+        }
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .container {
+            max-width: 1200px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .card {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .row .card {
+            height: 100%;
+        }
+        .img-fluid.rounded-circle {
+            border: 5px solid var(--border-color);
+        }
+        hr {
+            border: 1px solid var(--border-color);
+            margin: 3rem 0;
+        }
+        footer {
+            margin-top: 3rem;
+            padding: 2rem 0;
+        }
+    </style>
 </head>
 <body>
+    <button class="btn btn-outline-secondary theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-4">
@@ -53,9 +131,39 @@
         </div>
         <hr>
         <footer class="text-center">
-            <a href="https://www.linkedin.com/in/coletenold/" class="btn btn-secondary">LinkedIn</a>
+            <a href="https://www.linkedin.com/in/coletenold/" class="btn btn-secondary">
+                <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
         </footer>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        const icon = themeToggle.querySelector('i');
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        if (savedTheme === 'dark') {
+            html.setAttribute('data-bs-theme', 'dark');
+            icon.className = 'fas fa-sun';
+        } else {
+            html.removeAttribute('data-bs-theme');
+            icon.className = 'fas fa-moon';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-bs-theme');
+            if (currentTheme === 'dark') {
+                html.removeAttribute('data-bs-theme');
+                localStorage.setItem('theme', 'light');
+                icon.className = 'fas fa-moon';
+            } else {
+                html.setAttribute('data-bs-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                icon.className = 'fas fa-sun';
+            }
+        });
+    </script>
 </body>
 </html>
